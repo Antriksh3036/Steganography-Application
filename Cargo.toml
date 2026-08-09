@@ -1,5 +1,5 @@
 [package]
-name = "cteganography_project"
+name = "steganography_project"
 version = "0.1.0"
 edition = "2024"
 
