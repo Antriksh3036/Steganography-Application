@@ -29,7 +29,7 @@ streamlit run pycode.py
 ```
 
 ## Live demo
-[Add your Streamlit Cloud link here once deployed]
+[https://hideinimages.streamlit.app/]
 
 ## Why Rust for this?
 Steganography involves manipulating raw pixel/byte data — exactly the kind
