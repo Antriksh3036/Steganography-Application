@@ -14,12 +14,47 @@ fn change(img_bytes:&mut Vec<u8>, x:u8, a:usize){
 }
 
 #[pyfunction]
+fn size(img:Vec<u8>) -> PyResult<usize> {
+
+    //Getting Bmp offset
+    let mut offset: usize = 0;
+    let mut pow_of_256: u32 = 0;
+
+    for i in 10..14{
+        let byte_result;
+        let j: usize = img[i] as usize;
+        byte_result = j * (256usize.pow(pow_of_256));
+        pow_of_256 += 1;
+        offset += byte_result;
+    
+    }
+    let available = (img.len()-offset)/8; // number of image bytes available
+
+    Ok(available)
+}
+
+#[pyfunction]
 fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
+
+    //Getting Bmp offset
+    let mut offset: usize = 0;
+    let mut pow_of_256: u32 = 0;
+
+    for i in 10..14{
+        let byte_result;
+        let j: usize = img[i] as usize;
+        byte_result = j * (256usize.pow(pow_of_256));
+        pow_of_256 += 1;
+        offset += byte_result;
+    
+    }
+
+
 
     //Safety Checks
     let msg_bytes = msg.as_bytes();
     let required = ( msg_bytes.len() * 8 ) + 32 ;// number of bytes needed
-    let available = img.len()-54; // number of image bytes available
+    let available = img.len()-offset; // number of image bytes available
     
     if required > available {
         return Err(pyo3::exceptions::PyValueError::new_err("Message is too large for this image"));
@@ -27,12 +62,11 @@ fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
     
     
     
-    
     let mut img_bytes = img;
     
     //Encoding Message length
     let msg_len = msg_bytes.len() as u32;
-    let mut a = 54;
+    let mut a = offset;
     for i in (0..32).rev(){
         let msg_len_bit = ((msg_len >> i) & 1) as u8;
         change(&mut img_bytes, msg_len_bit, a); // Storing Message length
@@ -57,9 +91,22 @@ fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
 
 #[pyfunction]
 fn decode(img: Vec<u8>) -> PyResult<String> {
+
+    //Getting Bmp offset
+    let mut offset: usize = 0;
+    let mut pow_of_256: u32 = 0;
+
+    for i in 10..14{
+        let byte_result;
+        let j: usize = img[i] as usize;
+        byte_result = j * (256usize.pow(pow_of_256));
+        pow_of_256 += 1;
+        offset += byte_result;
+    
+    } 
     
     let img_bytes = img;
-    let mut ind = 54;
+    let mut ind = offset;
     
     //Retrieving message length
     let msg_len: usize ;
@@ -96,14 +143,36 @@ fn decode(img: Vec<u8>) -> PyResult<String> {
 }
 
 
+#[pyfunction]
+fn offset(img: Vec<u8>) -> PyResult<usize> {
+        //Getting Bmp offset
+    let mut offset: usize = 0;
+    let mut pow_of_256: u32 = 0;
+
+    for i in 10..14{
+        let byte_result;
+        let j: usize = img[i] as usize;
+        byte_result = j * (256usize.pow(pow_of_256));
+        pow_of_256 += 1;
+        offset += byte_result;
+    
+    } 
+    Ok(offset)
+}
 
 #[pymodule]
 mod steganography_project {
-    use super::*;
+    // use super::*;
 
     #[pymodule_export]
     use super::encode;
 
     #[pymodule_export]
     use super::decode;
+
+    #[pymodule_export]
+    use super::offset;
+
+    #[pymodule_export]
+    use super::size;
 }

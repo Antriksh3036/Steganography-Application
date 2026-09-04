@@ -1,5 +1,7 @@
 # 🕵️ Steganography Tool
 
+Current Version:2.0
+
 A web app to hide and extract secret messages inside images, built with a
 Python UI and a Rust-powered backend for the actual encode/decode logic.
 
