@@ -89,7 +89,7 @@ if opt == "About":
     """)
 
 if opt == "Encode":
-    uploaded_file = st.file_uploader("Input the image",type="image/bmp")
+    uploaded_file = st.file_uploader("Input the image",type=["bmp", "application/octet-stream"])
 
     msg = st.text_input("Enter the message you want to encode")
     if uploaded_file is not None:
