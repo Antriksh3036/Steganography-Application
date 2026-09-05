@@ -111,7 +111,7 @@ if opt == "Encode":
             
 
 if opt == "Decode": 
-    uploaded_file = st.file_uploader("Input the image",type="bmp")
+    uploaded_file = st.file_uploader("Input the image",type=["bmp", "application/octet-stream"])
 
     if uploaded_file is not None:
         st.image(uploaded_file)
