@@ -1,0 +1,109 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: black;
+}
+.bg {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: #0b0a14;
+}
+nav{
+    display: flex;
+    align-items: center;
+    padding: 0 1vw;
+    margin: 1vh 1.5vw;
+}
+.options{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 2.5vmax;
+    margin: 0 0 0 28vmax;
+}
+.options h3{
+    cursor: pointer;
+    padding: 0.7vw 1vw;
+    background-color: #15132a;
+    color: #ece9f7;
+    border-radius: 2vw;
+    box-shadow: 0px 3px 15px white;
+    font-family: Hack, monospace;
+    font-weight: 700;
+}
+.version{
+    color: #ece9f7;
+    font-family: Hack, monospace;
+    font-size: 1.7vw;
+    font-weight: 700;
+}
+.content{
+    display: flex;
+    flex-direction: row;
+}
+.left{
+    margin-left: 7vw;
+    margin-top: 8vh;
+    width: 39vw;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.left div{
+    color: #ece9f7;
+    font-family: Hack, monospace;
+    font-size: 3.6vw;
+    font-weight: 900;
+    margin-left: 6%;
+}
+.undertext{
+    color: #ece9f7;
+    font-family: Hack, monospace;
+    font-size: 1vw;
+    font-weight: 600;
+    margin-left: 6.5%;
+    text-shadow: 1px 1px 10px #ece9f7;
+}
+.right{
+    margin-top: 3vh;
+    margin-right: 7vw;
+    margin-left: 7vw;
+    width: 39vw;
+    height: 75vh;
+    display: flex;
+    flex-direction: column;
+}
+.right-buttons{
+    display: flex;
+    flex-direction: row;
+    margin-top: 25%;
+    gap: 10%;
+    justify-content: center;
+
+}
+.right-buttons button{
+    cursor: pointer;
+    height: 3.5vh;
+    padding: 0 7%;
+    border-radius: 1vw;
+    border: 0;
+    background-color: #15132a;
+    color: #ece9f7;
+    font-family: Hack, monospace;
+    font-size: 0.8vw;
+    font-weight: 800;
+    box-shadow: 4px 4px 40px #a78bfa;
+}
+.para{
+    display: flex;
+    text-align: center;
+    color: #ece9f7;
+    font-family: Hack, monospace;
+    font-size: 1vw;
+    font-weight: 400;
+    margin-top: 6vw;
+    text-shadow: 1px 1px 2px #ece9f7;
+    white-space: pre-wrap;
+}

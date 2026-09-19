@@ -9,4 +9,4 @@ name = "steganography_project"
 crate-type = ["cdylib"]
 
 [dependencies]
-pyo3 = "0.28.3"
+wasm-bindgen = "0.2"

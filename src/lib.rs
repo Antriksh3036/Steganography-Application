@@ -1,4 +1,4 @@
-use pyo3::prelude::*;
+use wasm_bindgen::prelude::*;
 
 
 
@@ -13,8 +13,8 @@ fn change(img_bytes:&mut Vec<u8>, x:u8, a:usize){
     
 }
 
-#[pyfunction]
-fn size(img:Vec<u8>) -> PyResult<usize> {
+#[wasm_bindgen]
+pub fn size(img:Vec<u8>) -> usize {
 
     //Getting Bmp offset
     let mut offset: usize = 0;
@@ -30,11 +30,11 @@ fn size(img:Vec<u8>) -> PyResult<usize> {
     }
     let available = (img.len()-offset)/8; // number of image bytes available
 
-    Ok(available)
+    available
 }
 
-#[pyfunction]
-fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
+#[wasm_bindgen]
+pub fn encode(msg:String,img:Vec<u8>) -> Result<Vec<u8>, JsError> {
 
     //Getting Bmp offset
     let mut offset: usize = 0;
@@ -57,7 +57,7 @@ fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
     let available = img.len()-offset; // number of image bytes available
     
     if required > available {
-        return Err(pyo3::exceptions::PyValueError::new_err("Message is too large for this image"));
+        return Err(JsError::new("Message is too large for this image"));
     }
     
     
@@ -89,8 +89,8 @@ fn encode(msg:String,img:Vec<u8>) -> PyResult<Vec<u8>> {
 
 
 
-#[pyfunction]
-fn decode(img: Vec<u8>) -> PyResult<String> {
+#[wasm_bindgen]
+pub fn decode(img: Vec<u8>) -> String {
 
     //Getting Bmp offset
     let mut offset: usize = 0;
@@ -134,17 +134,19 @@ fn decode(img: Vec<u8>) -> PyResult<String> {
         
         itr += 1;
     }
-    let decoded_msg = String::from_utf8(decoded_bytes).map_err(|e| pyo3::exceptions::PyValueError::new_err(e.to_string()))?;
+    let decoded_msg = String::from_utf8_lossy(&decoded_bytes).into_owned();
+
+
     
-    Ok(decoded_msg)
+    decoded_msg
     
     
     
 }
 
 
-#[pyfunction]
-fn offset(img: Vec<u8>) -> PyResult<usize> {
+#[wasm_bindgen]
+pub fn offset(img: Vec<u8>) -> usize {
         //Getting Bmp offset
     let mut offset: usize = 0;
     let mut pow_of_256: u32 = 0;
@@ -157,22 +159,5 @@ fn offset(img: Vec<u8>) -> PyResult<usize> {
         offset += byte_result;
     
     } 
-    Ok(offset)
-}
-
-#[pymodule]
-mod steganography_project {
-    // use super::*;
-
-    #[pymodule_export]
-    use super::encode;
-
-    #[pymodule_export]
-    use super::decode;
-
-    #[pymodule_export]
-    use super::offset;
-
-    #[pymodule_export]
-    use super::size;
+    offset
 }
