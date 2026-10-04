@@ -5,13 +5,11 @@
   "files": [
     "steganography_project_bg.wasm",
     "steganography_project.js",
-    "steganography_project_bg.js",
     "steganography_project.d.ts"
   ],
   "main": "steganography_project.js",
   "types": "steganography_project.d.ts",
   "sideEffects": [
-    "./steganography_project.js",
     "./snippets/*"
   ]
 }

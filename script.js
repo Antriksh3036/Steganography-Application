@@ -1,3 +1,6 @@
+import init, { encode, decode } from "./pkg/steganography_project.js"
+await init();
+
 /**
  * particle-field.js: dense two-layer canvas 2D particle background.
  * Plain JavaScript, no dependencies, no build step.
@@ -181,7 +184,7 @@
     host.appendChild(wrap);
 
     var ctx = canvas.getContext("2d");
-    if (!ctx) return function () {};
+    if (!ctx) return function () { };
 
     var mq = window.matchMedia("(prefers-reduced-motion: reduce)");
     var reduced = mq.matches;
@@ -590,72 +593,141 @@ let button1 = document.getElementById("Working")
 let text1 = "The message is converted into its binary representation. The application then modifies the least significant bit of the image's pixel bytes to store the message.\nSince only the least significant bit is modified, the changes are visually negligible to the human eye.\n\n•HTML\n•CSS\n•Javascript\n•Rust"
 let interval = null;
 button1.addEventListener("mouseover", () => {
-    document.querySelector(".para").innerText = ""
-    document.querySelector("#Working").style.border = "0.2vw solid #a19db8";
-    document.querySelector("#Architecture").style.border = "none";
-    document.querySelector("#Limitations").style.border = "none";
-    let i = 0;
-    interval = setInterval(() => {
-        document.querySelector(".para").innerText += text1[i];
-        i++;
-        if (i >= text1.length) clearInterval(interval);
-    }, 30);
+  document.querySelector(".para").innerText = ""
+  document.querySelector("#Working").style.border = "0.2vw solid #a19db8";
+  document.querySelector("#Architecture").style.border = "none";
+  document.querySelector("#Limitations").style.border = "none";
+  let i = 0;
+  interval = setInterval(() => {
+    document.querySelector(".para").innerText += text1[i];
+    i++;
+    if (i >= text1.length) clearInterval(interval);
+  }, 30);
 })
 button1.addEventListener("mouseleave", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = "Hide text messages inside Images";
+  clearInterval(interval);
+  document.querySelector(".para").innerText = "Hide text messages inside Images";
 });
 button1.addEventListener("click", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = text1;
+  clearInterval(interval);
+  document.querySelector(".para").innerText = text1;
 });
 
 
 let text2 = "This project works on:\n\n\n• HTML + CSS + Javascript — User interface and file handling\n• Rust + Webassembly — Steganography engine and byte-level processing\n\nThe uploaded BMP image is passed from Javascript to Rust as raw bytes. Rust performs the encoding or decoding and returns the resulting data back to Javascript."
 let button2 = document.getElementById("Architecture")
 button2.addEventListener("mouseover", () => {
-    document.querySelector(".para").innerText = ""
-    document.querySelector("#Working").style.border = "none";
-    document.querySelector("#Architecture").style.border = "0.2vw solid #a19db8";
-    document.querySelector("#Limitations").style.border = "none";
-    let i = 0;
-    interval = setInterval(() => {
-        document.querySelector(".para").innerText += text2[i];
-        i++;
-        if (i >= text2.length) clearInterval(interval);
-    }, 30);
+  document.querySelector(".para").innerText = ""
+  document.querySelector("#Working").style.border = "none";
+  document.querySelector("#Architecture").style.border = "0.2vw solid #a19db8";
+  document.querySelector("#Limitations").style.border = "none";
+  let i = 0;
+  interval = setInterval(() => {
+    document.querySelector(".para").innerText += text2[i];
+    i++;
+    if (i >= text2.length) clearInterval(interval);
+  }, 30);
 })
 button2.addEventListener("mouseleave", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = "Hide text messages inside Images";
+  clearInterval(interval);
+  document.querySelector(".para").innerText = "Hide text messages inside Images";
 });
 button2.addEventListener("click", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = text2;
+  clearInterval(interval);
+  document.querySelector(".para").innerText = text2;
 });
-
-
 
 
 let text3 = "• Currently supports BMP images.\n\n• The hidden message must fit within the available image capacity.\n\n• This project is intended for educational purposes and should not be considered a secure encryption system."
 let button3 = document.getElementById("Limitations")
 button3.addEventListener("mouseover", () => {
-    document.querySelector(".para").innerText = ""
-    document.querySelector("#Working").style.border = "none";
-    document.querySelector("#Architecture").style.border = "none";
-    document.querySelector("#Limitations").style.border = "0.2vw solid #a19db8";
-    let i = 0;
-    interval = setInterval(() => {
-        document.querySelector(".para").innerText += text3[i];
-        i++;
-        if (i >= text3.length) clearInterval(interval);
-    }, 30);
+  document.querySelector(".para").innerText = ""
+  document.querySelector("#Working").style.border = "none";
+  document.querySelector("#Architecture").style.border = "none";
+  document.querySelector("#Limitations").style.border = "0.2vw solid #a19db8";
+  let i = 0;
+  interval = setInterval(() => {
+    document.querySelector(".para").innerText += text3[i];
+    i++;
+    if (i >= text3.length) clearInterval(interval);
+  }, 30);
 })
 button3.addEventListener("mouseleave", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = "Hide text messages inside Images";
+  clearInterval(interval);
+  document.querySelector(".para").innerText = "Hide text messages inside Images";
 });
 button3.addEventListener("click", () => {
-    clearInterval(interval);
-    document.querySelector(".para").innerText = text3;
+  clearInterval(interval);
+  document.querySelector(".para").innerText = text3;
+});
+
+
+function downloadBMP(uint8Array, filename = 'image.bmp') {
+  const blob = new Blob([uint8Array], { type: 'image/bmp' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  URL.revokeObjectURL(url);
+}
+
+const input = document.getElementById('encode_input');
+const btn = document.getElementById('encodeBtn');
+
+input.addEventListener('change', () => {
+  btn.disabled = !input.files[0];
+});
+
+btn.addEventListener('click', async () => {
+  const text = document.getElementById('encodeMsg').value;
+
+  const file = input.files[0];
+  if (!file) return;
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+
+
+  await init();
+  let encoded_bytes = encode(text, bytes);
+  console.log(encoded_bytes);
+
+  downloadBMP(encoded_bytes, 'encoded.bmp');
+});
+
+
+const decode_input = document.getElementById('decode_input');
+const decode_btn = document.getElementById('decodeBtn');
+let decodeInterval = null;
+
+decode_input.addEventListener('change', () => {
+  decode_btn.disabled = !decode_input.files[0];
+});
+
+decode_btn.addEventListener('click', async () => {
+
+  const file = decode_input.files[0];
+  if (!file) return;
+
+  clearInterval(decodeInterval);
+  const decodedOutput = document.querySelector(".decoded_message");
+  decodedOutput.innerText = "";
+
+  const bytes = new Uint8Array(await file.arrayBuffer());
+
+
+  await init();
+  let decoded_message = decode(bytes);
+  
+
+
+    let i = 0;
+    decodeInterval = setInterval(() => {
+      decodedOutput.innerText += decoded_message[i];
+      i++;
+      if (i >= decoded_message.length) clearInterval(decodeInterval);
+    }, 30);
+    
 });
