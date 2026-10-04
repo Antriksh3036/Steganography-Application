@@ -44,3 +44,7 @@ WebAssembly
 Rust Steganography Engine
  ↓
 Encoded / Decoded Image
+```
+🔒 Privacy
+
+Image processing and message encoding/decoding are performed locally in the browser using WebAssembly. No backend server is required to process the image.
