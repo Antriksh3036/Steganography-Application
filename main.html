@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://fonts.cdnfonts.com/css/hack">
+
+    <title>Steganography Tool</title>
+</head>
+
+<body>
+    <div class="bg" data-particle-field></div>
+    <main id="about-section">
+        <nav>
+            <div class="version">v3.0.0</div>
+            <div class="options">
+                <h3 onclick="window.location.href='#about-section'">About</h3>
+                <h3 onclick="window.location.href='#encode-decode-section'">Encode</h3>
+                <h3 onclick="window.location.href='#encode-decode-section'">Decode</h3>
+                <h3 onclick="window.location.href='#sample-images-section'">Sample Images</h3>
+            </div>
+        </nav>
+        <div class="content">
+            <div class="left">
+                <div>Steganography Tool.</div>
+                <p class="undertext">This tool can hide <span id="typed"></span></p>
+            </div>
+            <div class="right">
+                <div class="right-buttons">
+                    <button id="Working">Working</button>
+                    <button id="Architecture">Architecture</button>
+                    <button id="Limitations">Limitations</button>
+                </div>
+                <p class="para">Hide text messages inside Images</p>
+            </div>
+        </div>
+    </main>
+    <main id="encode-decode-section">
+        <div class="page2">
+            <div class="encode">
+                <p></p>
+                <h1>Encode</h1>
+                <input id="encode_input" class="img_input" type="file" accept=".bmp" name="image"
+                    placeholder="Input the image">
+                <input id="encodeMsg" class="text_input" type="text" name="text"
+                    placeholder=" Enter your secret message...">
+                <button id="encodeBtn">Encode</button>
+            </div>
+            <div class="decode">
+                <p></p>
+                <h1>Decode</h1>
+                <input id="decode_input" class="img_input" type="file" accept=".bmp" name="image" placeholder="Input the image">
+                <button id="decodeBtn">Decode</button>
+                <p class ="decoded_message"></p>
+            </div>
+        </div>
+    </main>
+    <main clas="page3" id="sample-images-section">
+        <div class="image_text">
+            Sample Images
+        </div>
+        <div class="page3_images">
+            <div><img src="sample_images/boat_dock.bmp"><a href="sample_images/boat_dock.bmp"
+                    download="boat_dock.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/book_coffee.bmp"><a href="sample_images/book_coffee.bmp"
+                    download="book_coffee.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/butterfly.bmp"><a href="sample_images/butterfly.bmp"
+                    download="butterfly.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/city_night.bmp"><a href="sample_images/city_night.bmp"
+                    download="city_night.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/forest_path.bmp"><a href="sample_images/forest_path.bmp"
+                    download="forest_path.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/lighthouse.bmp"><a href="sample_images/lighthouse.bmp"
+                    download="lighthouse.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/lonely_tree.bmp"><a href="sample_images/lonely_tree.bmp"
+                    download="lonely_tree.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/mountain_lake.bmp"><a href="sample_images/mountain_lake.bmp"
+                    download="mountain_lake.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/sunset_beach.bmp"><a href="sample_images/sunset_beach.bmp"
+                    download="sunset_beach.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/village_river.bmp"><a href="sample_images/village_river.bmp"
+                    download="village_river.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/waterfall.bmp"><a href="sample_images/waterfall.bmp"
+                    download="waterfall.bmp"><button>Download</button></a></div>
+            <div><img src="sample_images/winding_road.bmp"><a href="sample_images/winding_road.bmp"
+                    download="winding_road.bmp"><button>Download</button></a></div>
+        </div>
+        <br>
+    </main>
+
+    <script type="module" src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.1.0/dist/typed.umd.js"></script>
+</body>
+
+</html>
